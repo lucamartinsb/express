@@ -8,6 +8,11 @@ app.get('/', (request, response) => {
 })
 // aqui foi definido a rota incial ou raiz e retorna uma mensagem na página.
 
+app.get('/sobre', (request, response) => {
+    response.send("Este é um projeto criado por Luca Martins e ele é feito com Express, que é um framework back-end do Node.js.")
+})
+// esta é uma rota sobre que traz um resumo do projeto como mensagem na página.
+
 app.listen(3000, () => {
     console.log('Servidor rodando na url http://localhost:3000')
 })
