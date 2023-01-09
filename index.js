@@ -1,7 +1,10 @@
-const express = require('express')
-// retorna uma função que cria o express pra dentro da constante.
-const app = express()
-// constante app recebe a função express, app passa a ser uma instância de express.
+const express = require('express') // retorna uma função que cria o express pra dentro da constante.
+const app = express() // constante app recebe a função express, app passa a ser uma instância de express.
+const handlebars = require('express-handlebars') // importando o handlebars para express.
+
+app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) // configurando o arquivo principal.
+app.set('view engine', 'handlebars') // configurando qual será o template engine.
+
 
 app.get('/', (request, response) => {
     response.send("Este foi o ínicio de tudo!")

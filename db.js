@@ -1,8 +1,6 @@
 // Este é apenas um teste de um primeiro banco de dados. //
 
-const { ConnectionAcquireTimeoutError } = require('sequelize')
 const Sequelize = require('sequelize') // Importando o módulo sequelize.
-const { SELECT } = require('sequelize/types/query-types')
 const connection = new Sequelize('cadastro', 'root', '1234', {
     host: 'localhost',
     dialect: 'mysql'
