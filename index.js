@@ -41,6 +41,16 @@ app.post('/addCliente', (req, res) => {
     })
 })
 
+app.get('/delCliente/:id', (req, res) => {
+    Cliente.destroy({where: {'id': req.params.id}})
+    .then(() => {
+        res.send('Cliente deletado com sucesso!')
+    }).catch((e) => {
+        res.send('Cliente inexistente!' + e)
+    })
+})
+
+
 app.get('/cadastrarFuncionario', (req, res) => {
     res.render('formularioFuncionario')
 })
