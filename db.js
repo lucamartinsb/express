@@ -1,6 +1,8 @@
 // Este é apenas um teste de um primeiro banco de dados. //
 
+const { ConnectionAcquireTimeoutError } = require('sequelize')
 const Sequelize = require('sequelize') // Importando o módulo sequelize.
+const { SELECT } = require('sequelize/types/query-types')
 const connection = new Sequelize('cadastro', 'root', '1234', {
     host: 'localhost',
     dialect: 'mysql'
@@ -22,8 +24,38 @@ const Cliente = connection.define('clientes', {
     },
     telefone: {
         type: Sequelize.INTEGER
+    },
+    veiculo: {
+        type: Sequelize.STRING
+    },
+    placa: {
+        type: Sequelize.STRING
     }
 }) // O model é basicamente uma referência da sua tabela dentro do sequelize.
 // O model é uma forma de criar tabelas sem precisar usar a linguagem mysql.
 
-Cliente.sync() // Sincroniza o model com banco de dados.
+const Parceiro = connection.define('parceiros', {
+    nome: {
+        type: Sequelize.STRING
+    },
+    cnpj: {
+        type: Sequelize.INTEGER
+    }
+})
+
+const Funcionario = connection.define('funcionarios', {
+    nome: {
+        type: Sequelize.STRING
+    },
+    cpf: {
+        type: Sequelize.INTEGER
+    },
+    telefone: {
+        type: Sequelize.INTEGER
+    }
+})
+
+// Sincronizando os models com banco de dados:
+Cliente.sync() 
+Parceiro.sync()
+Funcionario.sync()
