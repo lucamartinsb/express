@@ -3,6 +3,7 @@ const app = express() //constante app recebe a função express, app passa a ser
 const handlebars = require('express-handlebars') //importando o handlebars para Express.
 const bodyParser = require('body-parser') //utilitário para receber formulários dentro do Express.
 const Cliente = require('./models/Cliente')
+const Funcionario = require('./models/Funcionario')
 
 app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) //configurando o arquivo principal.
 app.set('view engine', 'handlebars') //configurando qual será o template engine.
@@ -13,10 +14,13 @@ app.use(bodyParser.json())//json() é uma função dentro do bodyParser e o resu
 //isso signifca que json pode ser interpretado através do body da requisição.
 
 app.get('/', (req, res) => {
-    Cliente.findAll({order: [['nome', 'ASC']]}).then((cliente) => {
-        res.render('home', {clientes: cliente})
+    Cliente.findAll({order: [['nome', 'ASC']]})
+    .then((cliente) => {
+        res.render('home', {clientes:cliente})
         //clientes recebe cada cliente e os armazenam dentro de si.
         //clientes deve ser passado no forEach do formulario.
+    }).catch((e) => {
+        res.send('Algo deu errado!' + e)
     })
 })
 
@@ -30,6 +34,22 @@ app.post('/addCliente', (req, res) => {
         telefone: req.body.telefone,
         veiculo: req.body.veiculo,
         placa: req.body.placa
+    }).then(() => {
+        res.redirect('/')
+    }).catch((error) => {
+        res.send('Houve um erro: ' + error)
+    })
+})
+
+app.get('/cadastrarFuncionario', (req, res) => {
+    res.render('formularioFuncionario')
+})
+
+app.post('/addFuncionario', (req, res) => {
+    Funcionario.create({
+        nome: req.body.nome,
+        cpf: req.body.cpf,
+        telefone: req.body.telefone
     }).then(() => {
         res.redirect('/')
     }).catch((error) => {
