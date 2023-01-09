@@ -11,3 +11,24 @@
     <a href="/cadastrarParceiro">Cadastro de Parceiro</a>
 </button>
 </div>
+<h2>Lista de Clientes</h2>
+<div>
+    <table border="2">
+        <thead>
+            {{#each clientes}}
+                <tr bgcolor="Wheat">
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Veículo</th>
+                    <th>Placa</th>
+                </tr>
+                <tr bgcolor="Beige">
+                    <td align="center">{{dataValues.nome}}</td>
+                    <td align="center">{{dataValues.telefone}}</td>
+                    <td align="center">{{dataValues.veiculo}}</td>
+                    <td align="center">{{dataValues.placa}}</td>
+                </tr>
+            {{/each}}
+        </thead>
+    </table>
+</div>
