@@ -13,7 +13,11 @@ app.use(bodyParser.json())//json() é uma função dentro do bodyParser e o resu
 //isso signifca que json pode ser interpretado através do body da requisição.
 
 app.get('/', (req, res) => {
-    res.render('home')
+    Cliente.findAll({order: [['nome', 'ASC']]}).then((cliente) => {
+        res.render('home', {clientes: cliente})
+        //clientes recebe cada cliente e os armazenam dentro de si.
+        //clientes deve ser passado no forEach do formulario.
+    })
 })
 
 app.get('/cadastrarCliente', (req, res) => {
