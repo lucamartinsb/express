@@ -2,6 +2,7 @@ const express = require('express') //retorna uma função que cria o express pra
 const app = express() //constante app recebe a função express, app passa a ser uma instância de express.
 const handlebars = require('express-handlebars') //importando o handlebars para Express.
 const bodyParser = require('body-parser') //utilitário para receber formulários dentro do Express.
+const Cliente = require('./models/Cliente')
 
 app.engine('handlebars', handlebars.engine({defaultLayout: 'main'})) //configurando o arquivo principal.
 app.set('view engine', 'handlebars') //configurando qual será o template engine.
@@ -11,13 +12,25 @@ app.use(bodyParser.urlencoded({extended: true})) //formularios submetidos pelo f
 app.use(bodyParser.json())//json() é uma função dentro do bodyParser e o resultado dessa chamada retorna uma função middle.
 //isso signifca que json pode ser interpretado através do body da requisição.
 
-app.post('/add', (req, res) => {
-    res.send(`Cliente ${req.body.nome} cadastrado com sucesso!`)
-    //Qualquer campo de um formulário pode ser acessado através de seu atributo name!
-    //Basta digitar req.body.atributoDoFormulário.
+app.get('/', (req, res) => {
+    res.render('home')
 })
-app.get('/cadastrar', (req, res) => {
-    res.render('formulario')
+
+app.get('/cadastrarCliente', (req, res) => {
+    res.render('formularioCliente')
+})
+
+app.post('/addCliente', (req, res) => {
+    Cliente.create({
+        nome: req.body.nome,
+        telefone: req.body.telefone,
+        veiculo: req.body.veiculo,
+        placa: req.body.placa
+    }).then(() => {
+        res.redirect('/')
+    }).catch((error) => {
+        res.send('Houve um erro: ' + error)
+    })
 })
 
 app.listen(3000, () => {
