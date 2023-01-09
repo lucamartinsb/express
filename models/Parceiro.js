@@ -12,3 +12,5 @@ const Parceiro = db.connection.define('parceiros', {
 })
 
 Parceiro.sync()
+
+module.exports = Parceiro

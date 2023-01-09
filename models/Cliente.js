@@ -22,3 +22,5 @@ const Cliente = db.connection.define('clientes', {
 // Sincronizando os models com banco de dados:
 Cliente.sync() 
 // execultar o force apenas quando for criar o banco de dados!
+
+module.exports = Cliente

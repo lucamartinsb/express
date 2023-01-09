@@ -15,3 +15,5 @@ const Funcionario = db.connection.define('funcionarios', {
 })
 
 Funcionario.sync()
+
+module.exports = Funcionario
